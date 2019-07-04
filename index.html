@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <title>Meu Veiculo</title>
+        <link rel="stylesheet" href="icons/material.css">
+        <link rel="stylesheet" href="css/estilo.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    </head>
+    <body>
+        <div class="section" id="tudo">
+
+            <input type="hidden" id="veiculo_id_update">
+            <input type="hidden" id="veiculo_id_delete">
+            <input type="hidden" id="gasto_id_update">
+            <input type="hidden" id="gasto_id_delete">
+            <input type="hidden" id="manu_id_update">
+            <input type="hidden" id="manu_id_delete">
+
+            <div class="section" id="principal">
+                    <h4>Escolha seu menu</h4>
+                    <br><br>
+                    <h5 class="1">Cadastro de Veiculo</h5>
+                    <h5 class="2">Consulta de Veiculo</h5>
+                    <h5 class="3">Cadastro de Gasto</h5>
+                    <h5 class="4">Consulta de Gasto</h5>
+                    <h5 class="5">Cadastro de Manutenção</h5>
+                    <h5 class="6">Consulta de Manutenção</h5>
+                    <h5 class="7">combustível ideal</h5>
+            </div>
+
+            <div class="section" id="cadvei">
+                <h5 class="container blue-darken-text"><b>Cadastro de Veículo</b></h5><br><br>
+                <form id="form-dolar">
+                    <label for="nome"><b>Marca: </b></label>
+                    <input id="cadmarca" name="marca" type="text"><br><br>
+                    <label for="modelo" ><b>Modelo: </b></label>
+                    <input id="cadmodelo" name="modelo" type="text"><br><br>
+                    <label for="ano"><b>Ano: </b></label>
+                    <input id="cadano" name="ano" type="number"><br><br>
+                    <label for="cor"><b>Cor: </b></label>
+                    <input id="cadcor" name="cor" type="text"><br><br>
+                    <label for="km"><b>Quilometragem:</b></label>
+                    <input id="cadkm" name="km" type="text"><br><br>
+                    <label for="val"><b>Valor da Tabela Fipe:</b></label>
+                    <input id="cadval" name="val" type="number"><br><br>
+                    <div class="btncad">
+                        <button id="cadastrar" class="waves-effect waves-light btn-large indigo darken-4" onclick="add()">
+                            <b>Cadastrar</b>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+
+            <div class="section" id="ideal">
+                <h4 class="container blue-darken-text">
+                    <i class="material-icons">directions_car</i>
+                    <b>Escolha ideal de combustível</b>
+                </h4><br>
+                <table class="combi">
+                    <thead>
+                        <tr>
+                            <th>Álcool</th>
+                            <th>Gasolina</th>
+                            <th>Escolher por</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input id="num1" name="num1" type="number" onkeyup="teste()"></td>
+                            <td><input id="num2" name="num2" type="number" onkeyup="teste()"></td>
+                            <td><input id="res" name="res" type="text" readonly="readonly"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="section" id="listveiculo">
+                <h5 class="container blue-dark-text"><b>Consulta de Veículo</b></h5><br>
+                    <table class="striped centered">
+                        <thead>
+                            <tr>
+                                <th>Marca</th>
+                                <th>Modelo</th>
+                                <th>Ano</th>
+                                <th>Cor</th>
+                                <th>Quilometragem</th>
+                                <th>Valor FIPE</th>
+                            </tr>
+                    </thead>
+                    <tbody id="veiculo-listagem">
+                    </tbody>
+                </table>
+            </div>
+            <div class="section" id="edvei">
+                <h4 class="container blue-dark-text">
+                    <b>Editar Veiculo</b></h4><br>
+                <form id="editar-vei">
+                    <label for="marca"><b>Marca: </b></label>
+                    <input id="editmarca" name="emarca" type="text"><br><br>
+                    <label for="modelo"><b>Modelo:</b></label>
+                    <input id="editmodelo" name="emodelo" type="text"><br><br>
+                    <label for="ano"><b>Ano:</b></label>
+                    <input id="editano" name="eano" type="number"><br><br>
+                    <label for="cor"><b>Cor:</b></label>
+                    <input id="editcor" name="ecor" type="text"><br><br>
+                    <label for="km"><b>Quilometragem:</b></label>
+                    <input id="editkm" name="ekm" type="text"><br><br>
+                    <label for="val"><b>Valor Tabela FIPE:</b></label>
+                    <input id="editval" name="eval" type="number"><br><br>
+                    <div id="btnedi">
+                        <button id="editar" class="waves-effect waves-light btn-large indigo darken-4" onclick="veiculo_atualizar()"><b>Alterar</b>
+                    </button>
+                </form>
+            </div>
+
+        
+            <div class="section" id="cadastro">
+                <h6 class="container blue-darken-text"><b>Cadastro de Gastos com o Veículo</b></h6><br><br>
+                <form id="form-dolar">
+                    <label for="gasto"><b>Tipo de Gasto: </b></label>
+                    <input id="cadgasto" name="gasto" type="text"><br><br>
+                    <label for="data"><b>Data: </b></label>
+                    <input class="datepicker" type="text" id="caddata"><br><br>
+                    <label for="valor"><b>Valor: </b></label>
+                    <input id="cadvalor" name="valor" type="number"><br><br>
+                    <div class="btncad">
+                        <button id="cadastrar" class="waves-effect waves-light btn-large" onclick="addgasto()"><b>Cadastrar</b>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="section container" id="listgasto">
+                <br>
+                <h5 class="container blue-dark-text">
+                    <b>Consulta de Gastos</b>
+                </h5><br>
+                <table class="striped centered">
+                    <thead>
+                        <tr>
+                            <th>Gasto</th>
+                            <th>Data</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="gasto-listagem">
+                    </tbody>
+                </table>
+            </div>
+            <div class="section" id="edigasto">
+                <h4 class="container blue-dark-text"><b>Editar Gastos</b></h4><br><br>
+                <form id="editar-gasto">
+                    <label for="gasto">Manutenção: </label>
+                    <input id="editgasto" name="egasto" type="text"><br><br>
+                    <label for="data">Data:</label>
+                    <input class="datepicker" type="text" id="editdata"><br><br>
+                    <label for="valor">Valor: </label>
+                    <input id="editvalor" name="evalor" type="number"><br><br>
+                    <br>
+                    <div id="btnedi">
+                        <button id="editargasto" class="waves-effect waves-light btn-large indigo darken-4" onclick="gasto_atualizar()"><b>Alterar</b>
+                        </button>
+                    </div>
+                    <br><br>
+                </form>
+            </div>
+
+
+            <div class="section" id="camanu">
+                <h6 class="container blue-darken-text"><b>Lançamento de Manutenção</b></h6><br><br>
+                <form id="form-dolar">
+                    <label for="man"><b>Manutenção: </b></label>
+                    <input id="cadmanu" name="manu" type="text"><br>
+                    <label for="km"><b>KM:</b></label>
+                    <input id="cadkm" name="kmm" type="number"><br><br>
+                    <div class="btncad">
+                        <button id="cadastrar" class="waves-effect waves-light btn-large indigo darken-4" onclick="addmanu()"><b>Cadastrar</b>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="section" id="listmanu">
+                <h6 class="container blue-dark-text"><b>Consulta de Manutenções</b></h6><br><br>
+                <table class="striped centered">
+                    <thead>
+                        <tr>
+                            <th>Manutenção</th>
+                            <th>KM</th>
+                        </tr>
+                    </thead>
+                    <tbody id="manu-listagem">
+                    </tbody>
+                </table>
+            </div>
+            <div class="section" id="edimanu">
+                <h5 class="container blue-dark-text"><b>Editar Manutenção</b></h5><br><br>
+                <form id="editar-manu">
+                    <label for="manu"><b>Manutenção: </b></label>
+                    <input id="editmanu" name="emanu" type="text"><br>
+                    <label for="km"><b>KM: </b></label>
+                    <input id="editkmm" name="ekmm" type="number"><br><br>
+                    <div id="btnedi">
+                        <button id="editarmanu" class="waves-effect waves-light btn-large indigo darken-4" onclick="manu_atualizar()"><b>Alterar</b></button>
+                    </div>
+                    <br><br>
+                </form>
+            </div>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/index.js"></script>
+    </body>
+</html>
